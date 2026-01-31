@@ -55,6 +55,11 @@ export const SkillTool = Tool.define("skill", async (ctx) => {
         always: [params.name],
         metadata: {},
       })
+
+      if (!skill.location) {
+        throw new Error(`Skill "${params.name}" has no location defined`)
+      }
+
       // Load and parse skill content
       const parsed = await ConfigMarkdown.parse(skill.location)
       const dir = path.dirname(skill.location)

@@ -16,12 +16,13 @@ export namespace Global {
     get home() {
       return process.env.OPENCODE_TEST_HOME || os.homedir()
     },
-    data,
-    bin: path.join(data, "bin"),
-    log: path.join(data, "log"),
-    cache,
-    config,
-    state,
+    // Use OPENCODE_CONFIG_DIR if set (legacy/compatibility), otherwise XDG
+    get data() { return process.env.OPENCODE_CONFIG_DIR ? path.join(process.env.OPENCODE_CONFIG_DIR, "data") : data },
+    get bin() { return path.join(this.data, "bin") },
+    get log() { return path.join(this.data, "log") },
+    get cache() { return process.env.OPENCODE_CONFIG_DIR ? path.join(process.env.OPENCODE_CONFIG_DIR, "cache") : cache },
+    get config() { return process.env.OPENCODE_CONFIG_DIR || config },
+    get state() { return process.env.OPENCODE_CONFIG_DIR ? path.join(process.env.OPENCODE_CONFIG_DIR, "state") : state },
   }
 }
 

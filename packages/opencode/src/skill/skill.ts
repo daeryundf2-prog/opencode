@@ -14,7 +14,7 @@ export namespace Skill {
   export const Info = z.object({
     name: z.string(),
     description: z.string(),
-    location: z.string(),
+    location: z.string().optional(),
   })
   export type Info = z.infer<typeof Info>
 
@@ -106,6 +106,20 @@ export namespace Skill {
     for (const dir of await Config.directories()) {
       for await (const match of OPENCODE_SKILL_GLOB.scan({
         cwd: dir,
+        absolute: true,
+        onlyFiles: true,
+        followSymlinks: true,
+      })) {
+        await addSkill(match)
+      }
+    }
+
+    // Scan manager-installed skills from ${Global.Path.data}/skills/installed/
+    const installedDir = `${Global.Path.data}/skills/installed`
+    if (await exists(installedDir)) {
+      const INSTALLED_SKILL_GLOB = new Bun.Glob("*/SKILL.md")
+      for await (const match of INSTALLED_SKILL_GLOB.scan({
+        cwd: installedDir,
         absolute: true,
         onlyFiles: true,
         followSymlinks: true,
