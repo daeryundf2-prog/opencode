@@ -9,6 +9,12 @@
     "opencode": {
       "options": {},
     },
+    "google": {
+      "env": ["GEMINI_API_KEY"],
+      "options": {
+        "apiKey": "$GEMINI_API_KEY"
+      }
+    },
   },
   "mcp": {
     "context7": {

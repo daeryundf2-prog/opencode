@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "skills": {
+    "test-skill": "git+/Users/sin-yonghag/opencode/packages/opencode/test-workspace-integration/mock-skill-repo#637e2d4076a4c4fbea9666d2c867154dc36e2ab8"
+  }
+}
